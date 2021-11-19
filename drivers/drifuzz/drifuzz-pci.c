@@ -6,6 +6,8 @@
 #include <linux/pci.h>
 #include <linux/delay.h>
 
+#include <linux/uaccess.h>
+
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Zekun Shen");
 MODULE_DESCRIPTION("A command channel between linux guest and qemu host");
