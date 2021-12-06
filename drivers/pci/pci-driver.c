@@ -367,7 +367,7 @@ __pci_device_probe(struct pci_driver *drv, struct pci_dev *pci_dev)
 }
 
 //add
-void pci_probe(void);
+//void pci_probe(void);
 
 static int pci_device_probe(struct device * dev)
 {
@@ -382,7 +382,7 @@ static int pci_device_probe(struct device * dev)
 	if (error)
 		pci_dev_put(pci_dev);
 		//add
-		pci_probe();
+		//pci_probe();
 
 	return error;
 }
