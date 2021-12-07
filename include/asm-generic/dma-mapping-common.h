@@ -6,11 +6,14 @@
 #include <linux/dma-debug.h>
 #include <linux/dma-attrs.h>
 
+//add 
+#include <linux/instr.h>
+
 static inline dma_addr_t dma_map_single_attrs(struct device *dev, void *ptr,
 					      size_t size,
 					      enum dma_data_direction dir,
 					      struct dma_attrs *attrs)
-{
+{	
 	struct dma_map_ops *ops = get_dma_ops(dev);
 	dma_addr_t addr;
 
@@ -30,6 +33,8 @@ static inline void dma_unmap_single_attrs(struct device *dev, dma_addr_t addr,
 					  enum dma_data_direction dir,
 					  struct dma_attrs *attrs)
 {
+	
+
 	struct dma_map_ops *ops = get_dma_ops(dev);
 
 	BUG_ON(!valid_dma_direction(dir));
@@ -52,6 +57,9 @@ static inline int dma_map_sg_attrs(struct device *dev, struct scatterlist *sg,
 	ents = ops->map_sg(dev, sg, nents, dir, attrs);
 	debug_dma_map_sg(dev, sg, nents, ents, dir);
 
+	//add
+	instr_dma_map_sg(ents, dev, sg, nents, dir, attrs);
+
 	return ents;
 }
 
@@ -65,6 +73,9 @@ static inline void dma_unmap_sg_attrs(struct device *dev, struct scatterlist *sg
 	debug_dma_unmap_sg(dev, sg, nents, dir);
 	if (ops->unmap_sg)
 		ops->unmap_sg(dev, sg, nents, dir, attrs);
+	
+	//add
+	instr_dma_unmap_sg(dev, sg, nents, dir, attrs);
 }
 
 static inline dma_addr_t dma_map_page(struct device *dev, struct page *page,
@@ -79,6 +90,9 @@ static inline dma_addr_t dma_map_page(struct device *dev, struct page *page,
 	addr = ops->map_page(dev, page, offset, size, dir, NULL);
 	debug_dma_map_page(dev, page, offset, size, dir, addr, false);
 
+	//add
+	instr_dma_map_page(addr, dev, page, offset, size, dir, NULL);
+
 	return addr;
 }
 
@@ -91,6 +105,9 @@ static inline void dma_unmap_page(struct device *dev, dma_addr_t addr,
 	if (ops->unmap_page)
 		ops->unmap_page(dev, addr, size, dir, NULL);
 	debug_dma_unmap_page(dev, addr, size, dir, false);
+
+	//add
+	instr_dma_unmap_page(dev, addr, size, dir, NULL);
 }
 
 static inline void dma_sync_single_for_cpu(struct device *dev, dma_addr_t addr,

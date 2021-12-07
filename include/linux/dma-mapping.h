@@ -198,7 +198,7 @@ struct dma_attrs;
 #define dma_map_sg_attrs(dev, sgl, nents, dir, attrs) \
 	dma_map_sg(dev, sgl, nents, dir)
 
-#define dma_unmap_ ars(dev, sgl, nents, dir, attrs) \
+#define dma_unmap_sg_attrs(dev, sgl, nents, dir, attrs) \
 	dma_unmap_sg(dev, sgl, nents, dir)
 
 #endif /* CONFIG_HAVE_DMA_ATTRS */

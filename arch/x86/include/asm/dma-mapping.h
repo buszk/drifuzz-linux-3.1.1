@@ -14,6 +14,9 @@
 #include <asm/swiotlb.h>
 #include <asm-generic/dma-coherent.h>
 
+//add
+#include <linux/drifuzz.h>
+
 #ifdef CONFIG_ISA
 # define ISA_DMA_BIT_MASK DMA_BIT_MASK(24)
 #else
@@ -136,6 +139,9 @@ dma_alloc_coherent(struct device *dev, size_t size, dma_addr_t *dma_handle,
 				     dma_alloc_coherent_gfp_flags(dev, gfp));
 	debug_dma_alloc_coherent(dev, size, *dma_handle, memory);
 
+	//add
+	handle_const_dma_init(*dma_handle, virt_to_phys(memory), size);
+
 	return memory;
 }
 
@@ -152,6 +158,9 @@ static inline void dma_free_coherent(struct device *dev, size_t size,
 	debug_dma_free_coherent(dev, size, vaddr, bus);
 	if (ops->free_coherent)
 		ops->free_coherent(dev, size, vaddr, bus);
+
+	//add
+	handle_const_dma_exit(bus);
 }
 
 #endif

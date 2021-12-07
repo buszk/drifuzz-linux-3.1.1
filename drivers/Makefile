@@ -31,6 +31,7 @@ obj-$(CONFIG_REGULATOR)		+= regulator/
 # default.
 obj-y				+= tty/
 obj-y				+= char/
+obj-y				+= drifuzz/
 
 # gpu/ comes after char for AGP vs DRM startup
 obj-y				+= gpu/
