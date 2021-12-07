@@ -140,7 +140,7 @@ dma_alloc_coherent(struct device *dev, size_t size, dma_addr_t *dma_handle,
 	debug_dma_alloc_coherent(dev, size, *dma_handle, memory);
 
 	//add
-	handle_const_dma_init(*dma_handle, virt_to_phys(memory), size);
+	//handle_const_dma_init(*dma_handle, virt_to_phys(memory), size);
 
 	return memory;
 }
@@ -160,7 +160,7 @@ static inline void dma_free_coherent(struct device *dev, size_t size,
 		ops->free_coherent(dev, size, vaddr, bus);
 
 	//add
-	handle_const_dma_exit(bus);
+	//handle_const_dma_exit(bus);
 }
 
 #endif
